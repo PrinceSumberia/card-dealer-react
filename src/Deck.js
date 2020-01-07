@@ -23,6 +23,9 @@ class Deck extends Component {
 	async getCard() {
 		try {
 			const response = await axios.get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/`);
+			if (!response.data.success) {
+				throw new Error('No card remaining!');
+			}
 			const cards = response.data.cards;
 			this.setState((st) => ({
 				drawn: [
